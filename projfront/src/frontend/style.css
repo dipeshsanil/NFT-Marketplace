@@ -34,6 +34,9 @@ h2{
   padding: 10% 0%;
 }
 
+#userDash{
+  padding: 6% 0%;
+}
 /*  HeroSection */
 #hero{
   padding: 10% 0%;
@@ -58,6 +61,13 @@ padding: 0%;
 
 background: #CACACA;
 border-radius: 25px;
+}
+
+.container > form {
+  width: 100%;
+  border: 1px solid #dfdfdf;
+  padding: 20px;
+  background: #fff;
 }
 
 /* Media Queries*/

@@ -22,7 +22,17 @@ const NavBar = () => {
         </li>
         
       </ul>
-      <Button name="Login"/>
+      
+      <div className="nav-item dropdown">
+          <a className="nav-link" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <img src="https://picsum.photos/50" style={{borderRadius:"50%",width:"50px",height:"50px"}}/>
+          </a>
+          <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+            <li><a className="dropdown-item" href="#">Account: 0x414832a119be063C809eaABAb153b52A469C3Af2</a></li>
+            <li><a className="dropdown-item" href="#">Balance: 0 ETH</a></li>
+            <li><a className="dropdown-item" href="#">Upload: Add New NFT</a></li>
+          </ul>
+       </div>
     </div>
   </div>
 </nav>

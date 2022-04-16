@@ -4,7 +4,7 @@ const Card = ()=>{
     return(
         <div class="col-12 col-md-3 gy-4">
         <div class="card shadow-sm"  style={{borderRadius:20}}>
-          <img   style={{borderTopLeftRadius:20,borderTopRightRadius:20,minHeight:"200px"}} src="https://images.unsplash.com/photo-1612151855475-877969f4a6cc?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8aGQlMjBpbWFnZXxlbnwwfHwwfHw%3D&w=1000&q=80" class="card-img-top" alt="..." />
+          <img   style={{borderTopLeftRadius:20,borderTopRightRadius:20,minHeight:"200px"}} src="https://picsum.photos/200" class="card-img-top" alt="..." />
           <div class="card-body ">
             <div class="d-flex justify-content-between align-items-center">
               <h5 class="card-title">Card title</h5>

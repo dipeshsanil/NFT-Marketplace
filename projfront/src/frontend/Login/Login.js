@@ -21,6 +21,7 @@ const Login = ()=>{
 			window.ethereum.request({ method: 'eth_requestAccounts'})
 			.then(result => {
 				setConnButtonText('Wallet Connected');
+                console.log(result[0]);
 				setDefaultAccount(result[0]);
                 navigate("/home");
 			})
@@ -41,6 +42,7 @@ const Login = ()=>{
     useEffect(() => {
         if(defaultAccount){
         provider.getBalance(defaultAccount)
+    
         .then(balanceResult => {
             setUserBalance(ethers.utils.formatEther(balanceResult));
         })
