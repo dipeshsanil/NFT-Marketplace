@@ -30,6 +30,10 @@ h2{
   margin-right: 5px;
 }
 
+#details{
+  padding: 10% 0%;
+}
+
 /*  HeroSection */
 #hero{
   padding: 10% 0%;

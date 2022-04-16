@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { Link,Outlet } from "react-router-dom";
 const Card = ()=>{
     return(
         <div class="col-12 col-md-3 gy-4">
@@ -16,7 +16,7 @@ const Card = ()=>{
               </svg>
               </a>
               <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                <li><a class="dropdown-item" href="#">Open</a></li>
+                <li><Link to="/details"><a class="dropdown-item" href="#">Open</a></Link></li>
                 
               </ul>
             </div>
