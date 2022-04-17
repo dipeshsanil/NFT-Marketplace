@@ -1,51 +1,56 @@
 import React from "react";
 import { useState, useEffect } from "react";
+import { ethers } from "ethers"
 import "./style.css";
 import Button from "./Button";
+import { create } from 'ipfs-http-client'
+const client = create('/ip4/127.0.0.1/tcp/5001')
 
-const UploadNFT = () =>{
-  const initialValues = { username: "", email: "", password: "" };
-  const [formValues, setFormValues] = useState(initialValues);
-  const [formErrors, setFormErrors] = useState({});
-  const [isSubmit, setIsSubmit] = useState(false);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormValues({ ...formValues, [name]: value });
-  };
+const UploadNFT = ({marketplace, nft}) =>{
+  
+  const [image, setImage] = useState('')
+  const [price, setPrice] = useState(null)
+  const [title, setTitle] = useState('')
+  const [description, setDescription] = useState('')
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setFormErrors(validate(formValues));
-    setIsSubmit(true);
-  };
+  const upload = async (event) => {
+    event.preventDefault()
+    const file = event.target.files[0]
+    console.log(file)
+    if (typeof file !== 'undefined') {
+      try {
+        const result = await client.add(file)
+        console.log(result)
+        setImage(`https://ipfs.io/ipfs/${result.path}`)
+      } catch (error){
+        console.log("ipfs image upload error: ", error)
+      }
+    }
+  }
+  const create = async (event) => {
+    event.preventDefault()
+    if (!image || !price || !title || !description) return
+    try{
+      const result = await client.add(JSON.stringify({image, price, title, description}))
+      mint(result)
+    } catch(error) {
+      console.log("ipfs uri upload error: ", error)
+    }
+  }
+   
 
-  useEffect(() => {
-    console.log(formErrors);
-    if (Object.keys(formErrors).length === 0 && isSubmit) {
-      console.log(formValues);
-    }
-  }, [formErrors]);
-  const validate = (values) => {
-    const errors = {};
-    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
-    if (!values.username) {
-      errors.username = "Username is required!";
-    }
-    if (!values.email) {
-      errors.email = "Email is required!";
-    } else if (!regex.test(values.email)) {
-      errors.email = "This is not a valid email format!";
-    }
-    if (!values.password) {
-      errors.password = "Password is required";
-    } else if (values.password.length < 4) {
-      errors.password = "Password must be more than 4 characters";
-    } else if (values.password.length > 10) {
-      errors.password = "Password cannot exceed more than 10 characters";
-    }
-    return errors;
-  };
+  const mint = async (result) => {
+    const uri = `https://ipfs.io/ipfs/${result.path}`
+    await(await nft.mint(uri)).wait()
+    
+    const id = await nft.tokenCount()
+ 
+    await(await nft.setApprovalForAll(marketplace.address, true)).wait()
+
+    const listingPrice = ethers.utils.parseEther(price.toString())
+    await(await marketplace.makeItem(nft.address, id, listingPrice)).wait()
+  }
 
   return (
     <div className="container" id="details">
@@ -53,26 +58,26 @@ const UploadNFT = () =>{
          <form>
          <div className="mb-3">
         <label for="title" className="form-label">Upload NFT</label>
-        <input type="file" className="form-control" id="title" />
+        <input onChange={upload} required type="file" className="form-control" name="file" id="title" />
         
     </div>
     <div className="mb-3">
         <label for="title" className="form-label">NFT Title</label>
-        <input type="text" className="form-control" id="title" />
+        <input onChange={(e) => setTitle(e.target.value)} type="text" className="form-control" id="title" />
         
     </div>
     
     <div className="mb-3">
         <label for="exampleInputPassword1" className="form-label">Description</label>
-        <textarea type="text" className="form-control" rows="6"/>
+        <textarea onChange={(e) => setDescription(e.target.value)} type="text" className="form-control" rows="6"/>
     </div>
     <div className="mb-3">
         <label for="title" className="form-label">Price</label>
-        <input type="number" className="form-control" id="title"/>
+        <input onChange={(e) => setPrice(e.target.value)} type="number" className="form-control" id="title"/>
         
     </div>
     
-    <button type="submit" className="btn btn-primary">Submit</button>
+    <button type="submit" onClick={create} className="btn btn-primary">Submit</button>
     </form>
     </div>
   );
