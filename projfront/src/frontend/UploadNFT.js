@@ -4,7 +4,7 @@ import { ethers } from "ethers"
 import "./style.css";
 import Button from "./Button";
 import { create } from 'ipfs-http-client'
-const client = create('/ip4/127.0.0.1/tcp/5001')
+const client = create('https://ipfs.infura.io:5001/api/v0')
 
 
 const UploadNFT = ({marketplace, nft}) =>{
@@ -22,7 +22,7 @@ const UploadNFT = ({marketplace, nft}) =>{
       try {
         const result = await client.add(file)
         console.log(result)
-        setImage(`https://ipfs.io/ipfs/${result.path}`)
+        setImage(`https://ipfs.infura.io/ipfs/${result.path}`)
       } catch (error){
         console.log("ipfs image upload error: ", error)
       }
@@ -33,6 +33,7 @@ const UploadNFT = ({marketplace, nft}) =>{
     if (!image || !price || !title || !description) return
     try{
       const result = await client.add(JSON.stringify({image, price, title, description}))
+      console.log(result)
       mint(result)
     } catch(error) {
       console.log("ipfs uri upload error: ", error)
@@ -41,7 +42,7 @@ const UploadNFT = ({marketplace, nft}) =>{
    
 
   const mint = async (result) => {
-    const uri = `https://ipfs.io/ipfs/${result.path}`
+    const uri = `https://ipfs.infura.io/ipfs/${result.path}`
     await(await nft.mint(uri)).wait()
     
     const id = await nft.tokenCount()

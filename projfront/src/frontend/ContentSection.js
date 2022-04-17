@@ -13,9 +13,9 @@ const ContentSection = ({marketplace, nft}) =>{
     const [items, setItems] = useState([])
     
     const loadMarketplaceItems = async () => {
-      //console.log(await marketplace);
+      console.log(await marketplace.itemCount());
       const itemCount = await marketplace.itemCount()
-      console.log("Hi")
+
       let items = []
       for (let i = 1; i <= itemCount; i++) {
         const item = await marketplace.items(i)
@@ -23,9 +23,10 @@ const ContentSection = ({marketplace, nft}) =>{
     
           const uri = await nft.tokenURI(item.tokenId)
 
-          console.log(uri)
+          //console.log(uri)
     
           const response = await fetch(uri)
+          console.log(response);
           const metadata = await response.json()
        
           const totalPrice = await marketplace.getTotalPrice(item.itemId)
@@ -60,13 +61,11 @@ const ContentSection = ({marketplace, nft}) =>{
                 <h2 className="text-center">Marketplace</h2>
                 <div className="row my-5">
                 {items.length > 0 ?
-                <div className="row my-5">
-                    {items.map((item, index) => (
-                        <div key={index}>
-                        <Card item={item}/>
-                        </div>
-                    ))}
-                </div>
+                
+                    items.map((item, index) => (          
+                        <Card key={index} item={item} />
+                    ))
+                
                 : (
                 <main style={{ padding: "1rem 0" }}>
                     <h2>No listed assets</h2>

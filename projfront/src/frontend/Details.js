@@ -1,18 +1,31 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
 import Button from "./Button";
+import {Outlet,useNavigate } from "react-router-dom";
 import { ethers } from "ethers";
 
 
 const Details = ({marketplace}) =>{
-  
+    
+    const navigate = useNavigate();
     const location = useLocation()
     const item = location.state.item
 
     const buyMarketItem = async (item) => {
         await (await marketplace.purchaseItem(item.itemId, { value: item.totalPrice })).wait()
         // loadMarketplaceItems()
+      }
+    
+    const onClick = () => {
+        buyMarketItem(item)
+        .then(result => {        
+        navigate("/home");
+        })
+        .catch(error => {
+            console.log(error.message);
+        })
     }
+
 
     return(
         <div id="details" className="container" >
@@ -38,7 +51,7 @@ const Details = ({marketplace}) =>{
                     </div>
                     <div>
                         
-                        <Button onClick={buyMarketItem} name="BUY NFT" width="100%" fontWeight="bold"/>
+                        <Button onClick={onClick} name="BUY NFT" width="100%" fontWeight="bold"/>
 
                     </div>
                 </div>

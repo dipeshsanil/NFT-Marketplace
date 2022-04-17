@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, Outlet } from "react-router-dom";
 import { ethers } from "ethers";
-const Card = ({item}) => {
+const Card = ({item,buy}) => {
   return (
     <div class="col-12 col-md-3 gy-4">
       <div class="card shadow-sm" style={{ borderRadius: 20 }}>
@@ -39,7 +39,7 @@ const Card = ({item}) => {
             </a>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
               <li>
-                <Link to="/details" state={{item}} style={{ textDecoration: "none" }}>
+                <Link to="/details" state={{item, buy}} style={{ textDecoration: "none" }}>
                   <a class="dropdown-item" href="#">
                     Open
                   </a>
