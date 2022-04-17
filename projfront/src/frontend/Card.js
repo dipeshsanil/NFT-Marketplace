@@ -25,7 +25,7 @@ const Card = ({item,buy}) => {
               data-bs-toggle="dropdown"
               aria-expanded="false"
             >
-              <svg
+              {/* <svg
                 width="25"
                 height="11"
                 viewBox="0 0 57 11"
@@ -35,20 +35,18 @@ const Card = ({item,buy}) => {
                 <circle cx="5.5" cy="5.5" r="5.5" fill="black" />
                 <circle cx="28.5" cy="5.5" r="5.5" fill="black" />
                 <circle cx="51.5" cy="5.5" r="5.5" fill="black" />
-              </svg>
+              </svg> */}
             </a>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-              <li>
-                <Link to="/details" state={{item, buy}} style={{ textDecoration: "none" }}>
-                  <a class="dropdown-item" href="#">
-                    Open
-                  </a>
-                </Link>
-              </li>
-            </ul>
+            
+                
+            
           </div>
           <p class="card-text text-muted">{item.seller}</p>
-          <p class="card-text pb-2">{ethers.utils.formatEther(item.totalPrice)} ETH</p>
+          <Link to="/details" state={{item, buy}} style={{ textDecoration: "none" }}>
+                  <button class="btn btn-primary btn-rounded"  href="#">
+                  {ethers.utils.formatEther(item.totalPrice)} ETH
+                  </button>
+           </Link>
         </div>
       </div>
     </div>

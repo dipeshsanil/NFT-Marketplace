@@ -90,4 +90,6 @@ h1 {
     display: table;
     margin: 0 auto;
   }
+
+  .btn.btn-rounded { border-radius: 50px } 
 }
