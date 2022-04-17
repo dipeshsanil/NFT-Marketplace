@@ -2,6 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { ethers } from "ethers"
 import "./style.css";
+import {Outlet,useNavigate } from "react-router-dom";
 import Button from "./Button";
 import { create } from 'ipfs-http-client'
 const client = create('https://ipfs.infura.io:5001/api/v0')
@@ -9,6 +10,7 @@ const client = create('https://ipfs.infura.io:5001/api/v0')
 
 const UploadNFT = ({marketplace, nft}) =>{
   
+  const navigate = useNavigate();
   const [image, setImage] = useState('')
   const [price, setPrice] = useState(null)
   const [title, setTitle] = useState('')
@@ -34,7 +36,7 @@ const UploadNFT = ({marketplace, nft}) =>{
     try{
       const result = await client.add(JSON.stringify({image, price, title, description}))
       console.log(result)
-      mint(result)
+      await mint(result)
     } catch(error) {
       console.log("ipfs uri upload error: ", error)
     }
@@ -51,6 +53,16 @@ const UploadNFT = ({marketplace, nft}) =>{
 
     const listingPrice = ethers.utils.parseEther(price.toString())
     await(await marketplace.makeItem(nft.address, id, listingPrice)).wait()
+  }
+
+  const onClick = async(event) => {
+    create(event)
+    .then(result => {
+      navigate("/home");
+    })
+    .catch(error => {
+      console.log(error.message);
+    })
   }
 
   return (
@@ -78,7 +90,7 @@ const UploadNFT = ({marketplace, nft}) =>{
         
     </div>
     
-    <button type="submit" onClick={create} className="btn btn-primary">Submit</button>
+    <button type="submit" onClick={onClick} className="btn btn-primary">Submit</button>
     </form>
     </div>
   );
