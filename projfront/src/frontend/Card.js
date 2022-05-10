@@ -3,8 +3,8 @@ import { Link, Outlet } from "react-router-dom";
 import { ethers } from "ethers";
 const Card = ({item,buy}) => {
   return (
-    <div class="col-12 col-md-3 gy-4">
-      <div class="card shadow-sm" style={{ borderRadius: 20 }}>
+    <div className="col-12 col-md-3 gy-4">
+      <div className="card shadow-sm" style={{ borderRadius: 20 }}>
         <img
           style={{
             borderTopLeftRadius: 20,
@@ -12,12 +12,12 @@ const Card = ({item,buy}) => {
             minHeight: "200px",
           }}
           src= {item.image}
-          class="card-img-top"
+          className="card-img-top"
           alt="..."
         />
-        <div class="card-body ">
-          <div class="d-flex justify-content-between align-items-center">
-            <h5 class="card-title">{item.title}</h5>
+        <div className="card-body ">
+          <div className="d-flex justify-content-between align-items-center">
+            <h5 className="card-title">{item.title}</h5>
             <a
               href="#"
               role="button"
@@ -41,9 +41,9 @@ const Card = ({item,buy}) => {
                 
             
           </div>
-          <p class="card-text text-muted">{item.seller}</p>
+          <p className="card-text text-muted">{item.seller}</p>
           <Link to="/details" state={{item, buy}} style={{ textDecoration: "none" }}>
-                  <button class="btn btn-primary btn-rounded"  href="#">
+                  <button className="btn btn-primary btn-rounded"  href="#">
                   {ethers.utils.formatEther(item.totalPrice)} ETH
                   </button>
            </Link>

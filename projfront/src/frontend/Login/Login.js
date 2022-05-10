@@ -72,7 +72,9 @@ const Login = ({web3Handler})=>{
                 <div className="container-fluid">
             <div id="login">
                 <div className="container text-center">
-                    <div className="box mx-auto mb-5" style={{width:"40%", height:"50vh"}}></div>
+                    <div className=" mx-auto py-4">
+                    <img src="https://avatars.githubusercontent.com/u/11744586?s=280&v=4" alt="" style={{width:"20%"}}/>
+                    </div>
                     <div className="mb-4">
                         <h2>Welcome Back!</h2>
                         <p>The decentralized web awaits</p>

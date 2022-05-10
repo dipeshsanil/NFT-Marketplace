@@ -8,9 +8,11 @@ const NavBar = ({ web3Handler, account, balance }) => {
     <>
       <nav className="navbar navbar-expand-md navbar-light fixed-top bg-light">
         <div className="container">
-          <a className="navbar-brand" href="#">
-            NFT Marketplace
-          </a>
+          <Link to="/home" style={{ textDecoration: "none", margin: 0 }}>
+                  <a className="navbar-brand" href="#">
+                  NFT Marketplace
+                  </a>
+                </Link>
           <button
             className="navbar-toggler"
             type="button"
@@ -58,7 +60,6 @@ const NavBar = ({ web3Handler, account, balance }) => {
               >
                 <li>
                   {account ? (
-                    <Link to="/user" style={{ textDecoration: "none" }}>
                       <span
                         href={`https://etherscan.io/address/${account}`}
                         target="_blank"
@@ -69,7 +70,6 @@ const NavBar = ({ web3Handler, account, balance }) => {
                         Account:{" "}
                         {account.slice(0, 5) + "..." + account.slice(38, 42)}
                       </span>
-                    </Link>
                   ) : (
                     <span onClick={web3Handler} className="dropdown-item">
                       <button
@@ -87,9 +87,9 @@ const NavBar = ({ web3Handler, account, balance }) => {
                   </a>
                 </li>
                 <li>
-                  <Link to="/admin" style={{ textDecoration: "none" }}>
+                  <Link to="/user" style={{ textDecoration: "none" }}>
                     <a className="dropdown-item" href="#">
-                      <span>Uploaded NFT's</span>
+                      <span>NFT's</span>
                     </a>
                   </Link>
                 </li>
@@ -101,7 +101,7 @@ const NavBar = ({ web3Handler, account, balance }) => {
                   </Link>
                 </li>
                 <li>
-                  <Link to="/" style={{ textDecoration: "none" }}>
+                <Link to="/" style={{ textDecoration: "none" }}>
                     <a className="dropdown-item" href="#">
                       <span>Log Out</span>
                     </a>

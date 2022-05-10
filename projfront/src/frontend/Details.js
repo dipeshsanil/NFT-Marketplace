@@ -1,15 +1,26 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
 import Button from "./Button";
+import { useState, useEffect } from "react";
 import {Outlet,useNavigate } from "react-router-dom";
 import { ethers } from "ethers";
 
 
 const Details = ({marketplace}) =>{
+
+    const [sold, setSold] = useState(false)
+
     
     const navigate = useNavigate();
     const location = useLocation()
     const item = location.state.item
+
+    const nftsold = async () => {
+       const nft = await marketplace.items(item.itemId)
+       setSold(nft.sold)
+      }
+
+
 
     const buyMarketItem = async (item) => {
         await (await marketplace.purchaseItem(item.itemId, { value: item.totalPrice })).wait()
@@ -25,6 +36,13 @@ const Details = ({marketplace}) =>{
             console.log(error.message);
         })
     }
+
+    useEffect(() => {
+        nftsold()
+    }, [])
+    
+
+
 
 
     return(
@@ -49,11 +67,13 @@ const Details = ({marketplace}) =>{
                         <h5>Description</h5>
                         <p style={{textAlign:"justify"}}>{item.description}</p>
                     </div>
-                    <div>
-                        
+                    {!sold && (
+                        <div>
                         <Button onClick={onClick} name="BUY NFT" width="100%" fontWeight="bold"/>
 
-                    </div>
+                        </div>
+                    )}
+                    
                 </div>
             </div>
         </div>

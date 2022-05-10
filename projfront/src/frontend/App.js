@@ -75,7 +75,7 @@ const App = () => {
             <Route path="home" element={<Home nft={nft} marketplace={marketplace}/>} />
             <Route path="*" element={<Navigate to="/" />} />
             <Route path="details" element={<Details marketplace={marketplace}/>} />
-            <Route path="user" element={<UserDashboard />} />
+            <Route path="user" element={<UserDashboard account={account} nft={nft} marketplace={marketplace}/>} />
             <Route path="admin" element={<AdminDashboard />} />
             <Route path="upload" element={<UploadNFT nft={nft} marketplace={marketplace}/>} />
           </Route>
