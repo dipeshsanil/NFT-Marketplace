@@ -68,6 +68,8 @@ h1 {
   background: #fff;
 }
 
+.btn.btn-rounded { border-radius: 50px } 
+
 @keyframes App-logo-spin {
 	from {
 	  transform: rotate(0deg);
@@ -103,5 +105,4 @@ h1 {
     margin: 0 auto;
   }
 
-  .btn.btn-rounded { border-radius: 50px } 
 }
